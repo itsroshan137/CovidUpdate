@@ -5,10 +5,11 @@ Installation
 # clone the project to your directory
 git clone https://github.com/itsroshan137/CovidUpdate.git
 
-# open project in vscode
+open project in vscode
 
-# open terminal
+open terminal
 
-# run
+run
 -> npm install
+
 -> npm start
