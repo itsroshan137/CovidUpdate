@@ -40,15 +40,17 @@ render(){
             <ActivityIndicator size = "large"/>
           :
           <View>
-            <Text>News Title</Text>
-            <Input placeholder = "Add News Title" onChangeText = {(val) => this.setState({title:val})}/>
-            <Text>News Portal</Text>
-            <Input placeholder = "Enter News Portal" onChangeText = {(val) => this.setState({newsportal:val})}/>
-            <Text>Enter Body</Text>
-            <Input placeholder = "Enter Little Brief" onChangeText = {(val) => this.setState({body:val})}/>
-            <Text>Enter Url</Text>
-            <Input placeholder = "Enter Url to Follow" onChangeText = {(val) => this.setState({urlLink:val})}/>
-            <Button title = "Insert News" onPress = {this.insertNews}/>
+            <Text>Quiz Title</Text>
+            <Input placeholder = "Add Quiz Title" onChangeText = {(val) => this.setState({title:val})}/>
+            <Text>Option A</Text>
+            <Input placeholder = "Option A" onChangeText = {(val) => this.setState({newsportal:val})}/>
+            <Text>Option B</Text>
+            <Input placeholder = "Option B" onChangeText = {(val) => this.setState({body:val})}/>
+            <Text>Option C</Text>
+            <Input placeholder = "Option C" onChangeText = {(val) => this.setState({urlLink:val})}/>
+            <Text>Option D</Text>
+            <Input placeholder = "Option D" onChangeText = {(val) => this.setState({urlLink:val})}/>
+            <Button title = "Insert Quiz" onPress = {this.insertNews}/>
           </View>
         }
       </View>

@@ -16,15 +16,14 @@ export default class SplashScreen extends React.Component{
         return(
             <ScrollView horizontal = {true} pagingEnabled ={true} style = {{backgroundColor:'#fff'}}>
                 <View style = {{ flex:1, justifyContent:'center', alignItems:'center', width:Dimensions.get('window').width, height:Dimensions.get('window').height}}>
-                    <Text style = {{fontWeight: 'bold', fontSize:26}}>Covid Updates</Text> 
-                    <Image source = {require('../assets/photos/Splash/precautions.gif')} style = {{height:350, width: 200}}/>
-                    <Text style = {{fontWeight: '400', fontSize:16, marginHorizontal:25, justifyContent:'center'}}>Covid-19 is “a mild to severe respiratory illness that is caused by a coronavirus,” one that is characterized especially by fever, cough, and shortness of breath and may progress to pneumonia and respiratory failure.</Text>
+                    <Text style = {{fontWeight: 'bold', fontSize:26}}>ITS System for Learning Lava</Text> 
+                    <Image source = {require('../assets/photos/Splash/java.gif')} style = {{height:350, width: 200}}/>
+                    <Text style = {{fontWeight: '400', fontSize:16, marginHorizontal:25, textAlign:'center'}}>Lorem Ipsum  asdf as df as df asdf a sd f asdfa sdf gas g as df a sdf as df a sdf a sdf  asdf fasd;jflasdf asdjklfj asdlkjfklas dfas df asdf asdfjkasdfj+62596 </Text>
                 </View>
                 <View style = {{ flex:1, justifyContent:'center', alignItems:'center', width:Dimensions.get('window').width, height:Dimensions.get('window').height}}>
-                    <TouchableOpacity activeOpacity = {0.7} >
-                        <Text onPress = {this.tologinScreen} style={{ color: 'white' }}>Admin Login</Text>
-                    </TouchableOpacity>
-                    <Image source = {require('../assets/photos/Splash/Informative.gif')} style = {{height:350, width: 350}}/>
+                    <Image source = {require('../assets/photos/Splash/java.gif')} style = {{height:350, width: 200}}/>
+                    <Button title = "Registration and Login" onPress = {this.tologinScreen}></Button>
+                    <View style = {{marginBottom:50}}></View>
                     <Button title = "Enter Application" onPress = {this.buttonPressed}></Button>
                 </View>
             </ScrollView>

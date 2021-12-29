@@ -9,14 +9,20 @@ export default class Update extends React.Component{
   addHealthServices =() => {
     this.props.navigation.navigate("AddHealthServices")
   }
+
+  ManageStudentQuery =() => {
+    this.props.navigation.navigate("ManageStudentQuery")
+  }
   render(){
     return(
       <View style = {{flex:1, alignItems:'stretch', margin:10}}>
         <Text>What you Want to Update ?</Text>
         <Text></Text>
-        <Button title = "News" onPress = {this.addNews}/> 
+        <Button title = "Quiz Creation" onPress = {this.addNews}/> 
         <Text></Text>
-        <Button title = "Health Services" onPress = {this.addHealthServices} />
+        <Button title = "Study Material Creation" onPress = {this.addHealthServices} />
+        <Text></Text>
+        <Button title = "Manage Student Query" onPress = {this.ManageStudentQuery} />
       </View>
     )
   }

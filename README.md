@@ -5,7 +5,7 @@ For the Accurate, Authentic and Genuine information related to coronavirus pande
 
 clone the project to your directory.
 
-git clone https://github.com/itsroshan137/CovidUpdate.git
+git clone https://github.com/itsroshan137/itsforjava
 
 open project in vscode
 

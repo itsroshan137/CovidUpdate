@@ -3,8 +3,13 @@ import {StyleSheet, Text, View, Image, Button, ScrollView, ActivityIndicator} fr
 import { Avatar, Icon} from 'react-native-elements';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 
-const width = 100;
 const height = 65 ;
+
+const data=[
+    {key:"1",title:"Chapter1: Java - Overview", desc: "Lore Ipsumm 1111111"},
+    {key:"2",title:"Chapter2: Java- Environment Setup", desc: "Lorem Ipsum 2222"},
+    {key:"3",title:"Chapter3: Java - Basic Syntax", desc: "Lorem Ipsum 333"},
+];
 
 export default class LoginScreen extends React.Component{
     constructor(){
@@ -48,18 +53,21 @@ export default class LoginScreen extends React.Component{
         this.props.navigation.navigate("AlwaysMore");
     }
 
+    AboutITS = () => {
+        this.props.navigation.navigate("AboutITS");
+    }
+
     render(){
         return(
             <ScrollView>
                 <View>
-                    <Image source={require('../assets/photos/raw/fight.gif')} style={{ height: 250, width:380, position: "absolute", alignItems:'stretch'}}></Image>
                     <View style = {styles.avatar}>
                         <Avatar 
                             source = {require('../assets/burger.png')}
                             style={{ width: 25, height: 25}}
-                            onPress = {()=>{this.props.navigation.openDrawer();}}
-                            
+                            onPress = {()=>{this.props.navigation.openDrawer();}}   
                         />
+                        <Text>Study Material</Text>
                         <Avatar
                             source = {require('../assets/info.png')}
                             style={{ width: 25, height: 25 }}
@@ -68,101 +76,64 @@ export default class LoginScreen extends React.Component{
                     </View> 
                     <View style = {styles.textContainer}>
                         <TouchableOpacity activeOpacity = {0.7} onPress = {this.gotoStatistics}>
-                            <Text style = {styles.text}>Cases World Wide</Text> 
+                            <Text style = {styles.text}>Topics</Text> 
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity = {0.7} onPress = {this.gotoStatistics}>
-                            <Text style = {styles.textRight}>See All</Text>
-                        </TouchableOpacity>
-                       
+                        <Text style = {styles.text} onPress = {this.gotoStatistics}>See All</Text> 
                     </View>
                     <View> 
                         <View style={styles.boxContainer}>
                             <View style={styles.box}>
-                                <Text>Total Cases</Text>
                                 {
                                     this.state.loading ? 
                                         <ActivityIndicator/>
                                     :
-                                    <Text style={{ fontSize:13}}>{this.state.dataSource.Global.TotalConfirmed}</Text>
+                                    <TouchableOpacity onPress = {() => this.props.navigation.navigate("Chapter", {title:data[0].title, body: data[0].desc}) }>
+                                        {/* <Text style={{ fontSize:13}}>{this.state.dataSource.Global.TotalConfirmed}</Text> */}
+                                        <Text style={{ fontSize:13, fontWeight:'600'}}>Chapter1: Java - Overview</Text>
+                                    </TouchableOpacity>
                                 }
                             </View>
                             <View style={styles.box}>
-                                <Text>Total Deaths</Text>
                                 {
                                     this.state.loading ? 
                                         <ActivityIndicator/>
                                     :
-                                    <Text style={{ fontSize:13}}>{this.state.dataSource.Global.TotalDeaths}</Text>
+                                    <TouchableOpacity onPress = {() => this.props.navigation.navigate("Chapter", {title:data[1].title, body: data[1].desc}) }>
+                                        {/* <Text style={{ fontSize:13}}>{this.state.dataSource.Global.TotalDeaths}</Text> */}
+                                        <Text style={{ fontSize:13, fontWeight:'600'}}>Chapter2: Java- Environment Setup</Text>
+                                    </ TouchableOpacity>
                                 }
                             </View>
                             <View style={styles.box}>
-                                <Text>New Cases</Text>
                                 {
                                     this.state.loading ? 
                                         <ActivityIndicator/>
                                     :
-                                    <Text style={{ fontSize:13}}>{this.state.dataSource.Global.NewConfirmed}</Text>
+                                    <TouchableOpacity onPress = {() => this.props.navigation.navigate("Chapter", {title:data[2].title, body: data[2].desc}) }>
+                                        <Text style={{ fontSize:13, fontWeight:'600'}}>Chapter3: Java - Basic Syntax</Text>
+                                        {/* <Text style={{ fontSize:13}}>{this.state.dataSource.Global.NewConfirmed}</Text> */}
+                                    </TouchableOpacity>
                                 }
                             </View>
-                        </View>
-                        <View style={styles.boxContainer}>
-                        <View style={styles.box}>
-                                <Text>New Deaths</Text>
-                                {
-                                    this.state.loading ? 
-                                        <ActivityIndicator/>
-                                    :
-                                    <Text style={{ fontSize:13}}>{this.state.dataSource.Global.NewDeaths}</Text>
-                                }
-                            </View>
-                            <View style={styles.box}>
-                                <Text>New Recovered</Text>
-                                {
-                                    this.state.loading ? 
-                                        <ActivityIndicator/>
-                                    :
-                                    <Text style={{ fontSize:13}}>{this.state.dataSource.Global.NewRecovered}</Text>
-                                }
-                            </View>
-                            <View style={styles.box}>
-                                <Text>New Cases</Text>
-                                {
-                                    this.state.loading ? 
-                                        <ActivityIndicator/>
-                                    :
-                                    <Text style={{ fontSize:13}}>{this.state.dataSource.Global.TotalRecovered}</Text>
-                                }
-                            </View>
-                        </View>
+                        </View>             
                     </View>    
-                    <View style={{flex:1, flexDirection: 'row', alignItems: 'center', marginTop:8, marginLeft:25, justifyContent:'space-evenly' }}>
-                        <Text style={{ color: 'red' }}> Last Updated: {this.state.dataSource.Date} </Text>
-                        <TouchableHighlight style = {{  height: 22, width: 22,}} onPress = {this.fetchDatafromServer}>
-                            <Image name='refresh' source={require('../assets/refresh.png')} style={{ resizeMode: 'contain', height: 20, width: 20}} />
-                        </TouchableHighlight>
-                    </View>
                     <View style = {{ flex:1, flexDirection:'row',justifyContent:'space-between', marginLeft:22, marginRight:22, marginTop:10}}>
                         <TouchableOpacity activeOpacity = {0.7} onPress = {this.alwaysMore}>
-                            <Text style = {styles.text}>Always More</Text> 
-                        </TouchableOpacity>
-                        <TouchableOpacity activeOpacity = {0.7} onPress = {this.alwaysMore}>
-                            <Text style = {styles.textRight}>View All</Text>
+                            <Text style = {styles.text}>AlwaysMore</Text> 
                         </TouchableOpacity>
                     </View>
 
                     <View>
                         <View style={{  flex:1, flexDirection:'row',justifyContent:'space-between', marginLeft:22, marginRight:22, margin: 20}}>
                             <View style = {{alignItems:'center'}}>
-                                <TouchableOpacity activeOpacity={0.7} onPress = {this.alwaysMore} style={{ width:169, height:101, alignItems:"center", justifyContent:"center"}}>
+                                <TouchableOpacity activeOpacity={0.7} onPress = {this.gotoStatistics} style={{ width:169, height:101, alignItems:"center", justifyContent:"center"}}>
                                     <Image source={require("../assets/photos/raw/healthServices.jpg")} style={ styles.image } />
                                 </TouchableOpacity>
-                                <Text>Health Services</Text>
                             </View>
                             <View style = {{alignItems:'center'}}>
-                                <TouchableOpacity activeOpacity={0.7} onPress = {this.alwaysMore} style={{ width:169, height:101, alignItems:"center", justifyContent:"center"}}>
+                                <TouchableOpacity activeOpacity={0.7} onPress = {this.gotoNews} style={{ width:169, height:101, alignItems:"center", justifyContent:"center"}}>
                                     <Image source={require("../assets/photos/raw/precautions.png")} style={ styles.image }/>
                                 </TouchableOpacity>
-                                <Text>Precautions</Text>
                             </View>
                         </View>
                         <View style={{  flex:1, flexDirection:'row',justifyContent:'space-between', marginLeft:22, marginRight:22}}>
@@ -170,13 +141,11 @@ export default class LoginScreen extends React.Component{
                                 <TouchableOpacity activeOpacity={0.7} onPress = {this.alwaysMore} style={{ width:169, height:101, alignItems:"center", justifyContent:"center"}}>
                                     <Image source={require("../assets/photos/raw/sympotomes.jpg")} style={ styles.image }/>
                                 </TouchableOpacity>
-                                <Text>Symptomes</Text>
                             </View>
                             <View style = {{alignItems:'center'}}>
-                                <TouchableOpacity activeOpacity={0.7} onPress = {this.gotoNews} style={{ width:169, height:101, alignItems:"center", justifyContent:"center"}}>
-                                    <Image source={require("../assets/photos/raw/newsupdate.jpg")} style={ styles.image }/>
+                                <TouchableOpacity activeOpacity={0.7} onPress = {this.AboutITS} style={{ width:169, height:101, alignItems:"center", justifyContent:"center"}}>
+                                    <Image source={require("../assets/photos/raw/about.jpg")} style={ styles.image }/>
                                 </TouchableOpacity>
-                                <Text>News/Update</Text>
                             </View>
                         </View>
                     </View>
@@ -189,7 +158,7 @@ export default class LoginScreen extends React.Component{
 
 const styles = StyleSheet.create({
     box:{
-        width: width, height: height, 
+        width: "100%", height: height, 
         backgroundColor: "#fff", borderRadius: 12, alignItems:'center', justifyContent:'center', 
         marginRight: 5, marginTop:10, 
         shadowColor: "#000", 
@@ -201,10 +170,10 @@ const styles = StyleSheet.create({
         flex:1, flexDirection:"row", justifyContent:"space-between", marginTop:50, marginLeft:25, marginRight:25 
     },
     boxContainer:{  
-        flex:1, flexDirection:'row',justifyContent:'space-between', marginLeft:22, marginRight:22
+        flex:1, flexDirection:'column',justifyContent:'space-between', marginLeft:22, marginRight:22
     },
     textContainer:{ 
-        flex:1, flexDirection:'row',justifyContent:'space-between', marginTop:180, marginLeft:22, marginRight:22
+        flex:1, flexDirection:'row',justifyContent:'space-between', marginTop:30, marginLeft:22, marginRight:22
     },
     text:{
         fontWeight:'bold', color:'#000', fontSize:16

@@ -71,7 +71,7 @@ export default class LoginScreen extends React.Component{
                     :
                     <View>
                         <View style = { styles.img }>
-                            <Image source = {require('../assets/photos/raw/1.jpg')} style = {{width:200, height:200}}/>
+                            <Image source = {require('../assets/photos/Splash/java.gif')} style = {{width:200, height:200}}/>
                         </View>
                         <View>
                             <Text style = { styles.text }>Email</Text>

@@ -14,9 +14,12 @@ import UpdateNews from '../Tabs/UpdateNews';
 import Update from '../Screens/Update';
 import AddNews from '../Screens/AddNews';
 import AddHealthServices from '../Screens/AddHealthServices';
+import ManageStudentQuery from '../Screens/ManageStudentQuery';
 import SuperAdmin from '../Screens/SuperAdmin';
 import Information from '../Tabs/Information';
 import AlwasysMore from '../Screens/AlwaysMore';
+import AboutITS from '../Screens/AboutITS';
+import Chapter from '../Screens/Chapter';
 import { Icon } from 'react-native-elements';
 
 
@@ -30,16 +33,16 @@ function screenOptions({route}){
             let iconName;
             let type = "font-awesome";
             if (route.name === "HomeScreen"){
-                iconName= "home";
+                iconName= "book";
             }
             else if (route.name ==="Statistics"){
-                iconName= "globe";
+                iconName= "search";
             }
             else if (route.name ==="News"){
                 iconName = "newspaper-o";
             }
             else if (route.name === 'Information') {
-                iconName = 'info-circle';
+                iconName = 'question';
             }
             return <Icon name = {iconName} type = {type} size = {20} color={color} style = {{ alignItems:'center', justifyContent:'center'}}/>
         }
@@ -79,10 +82,13 @@ export default function screen(){
                 <Stack.Screen name = "UpdateNews" component = {UpdateNews} />
                 <Stack.Screen name = "News" component = {News}  options = {{ headerShown:false}}/>
                 <Stack.Screen name = "Statistics" component = {Statistics}/>
-                <Stack.Screen name = "AlwaysMore" component = {AlwasysMore} options = {{title:'Always More'}} />
-                <Stack.Screen name = "Update" component = {Update} options = {{title:'Update News/Contact'}} />
-                <Stack.Screen name = "AddNews" component = {AddNews} options = {{title:'Add News'}} />
-                <Stack.Screen name = "AddHealthServices" component = {AddHealthServices} options = {{title:'Add Health Services'}} /> 
+                <Stack.Screen name = "AlwaysMore" component = {AlwasysMore} options = {{title:'Ask your Doubt !'}} />
+                <Stack.Screen name = "AboutITS" component = {AboutITS} options = {{title:'ITS for Learning Java'}} />
+                <Stack.Screen name = "Chapter" component = {Chapter} options = {{title:'Chapters'}} />
+                <Stack.Screen name = "Update" component = {Update} options = {{title:'Update'}} />
+                <Stack.Screen name = "AddNews" component = {AddNews} options = {{title:'Quiz Creation'}} />
+                <Stack.Screen name = "AddHealthServices" component = {AddHealthServices} options = {{title:'Study Material Creation'}} /> 
+                <Stack.Screen name = "ManageStudentQuery" component = {ManageStudentQuery} options = {{title:'Manage Student Query'}} /> 
                 <Stack.Screen name = "SuperAdmin" component = {SuperAdmin} options = {{title:'Confirm Or Delete'}} />          
             </Stack.Navigator>
         </NavigationContainer>

@@ -1,105 +1,117 @@
-import React from 'react';
-import {View, Text, TouchableOpacity, Linking, FlatList, ActivityIndicator} from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome';
-import { ScrollView } from 'react-native-gesture-handler';
+import React, { Component } from 'react';
+import { View, StyleSheet, StatusBar, TouchableOpacity, Image, ScrollView, Text, TextInput, Alert } from 'react-native';
+import {Input} from 'react-native-elements';
 
-class AlwaysMore extends React.Component{
-     constructor(){
-         super();
-         this.state = {
-             dataSource: [],
-             loading : false
-         }
-     }
+import { Entypo } from '@expo/vector-icons'; 
+import AppPicker from '../Components/AppPicker';
 
-     componentDidMount = () => {
-         this.fetchDataFromServer();
-     }
+class AlwaysMore extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      name:"",
+    };
 
-     fetchDataFromServer = async() => {
-        try{
-            this.setState({loading:true});
-            const response = await fetch('https://thecoronatrackerapp.herokuapp.com/retrieving-healthservices', {method:'POST'});
-            const json = await response.json();
-            this.setState({
-              dataSource: json.result,
-              loading: false
-            });
-            
-          }
-          catch(e){
-            console.log(e);
-            this.setState({loading:'true'})
-          }
-     }
+    this.genderCategories=[
+        {value:"1",label:"Chapter1: Java - Overview", desc: "Lore Ipsumm 1111111"},
+        {value:"2",label:"Chapter2: Java- Environment Setup", desc: "Lorem Ipsum 2222"},
+        {value:"3",label:"Chapter3: Java - Basic Syntax", desc: "Lorem Ipsum 333"},
+        {value:"4",label:"Chapter4: Java - Object and Classes", desc: "Lorem Ipsum 44"},
+        {value:"5",label:"Chapter5: Java- Basic Datatypes", desc: "Lorem Ipsum 555"},
+        {value:"6",label:"Chapter6: Java - Variable Types", desc: "Lorem Ipsum 666"},
+        {value:"7",label:"Chapter7: Java - Modifier Types", desc: "Lorem Ipsum 7777"},
+        {value:"7",label:"Chapter8: Java-Basic Operators", desc: "Lorem Ipsum 8888"},
+      ];
 
-     _renderItems = ({item}) => {
-         return(
-            <View style = {{flex:1, flexDirection:'row',justifyContent:'space-between', alignItems:'center', marginBottom:5}}>
-                <Text style = {{fontWeight:"500", fontSize: 16}}>{item.type}</Text>
-                <TouchableOpacity
-                    style={{backgroundColor: '#FF4D58', width: 100, borderRadius: 40, padding: 5,}}
-                    onPress={() => Linking.openURL(`tel:${item.contactNo}`)}>
-                    <Text style={{fontSize: 14, color: '#FFF', textAlign: 'center'}}>
-                        <Icon name="phone" size={14} style={{marginEnd: 10}} />
-                        &nbsp; Call now
-                    </Text>
-                </TouchableOpacity>
-            </View>
-         );
-     }
-    render(){
-        return(
-            <ScrollView>
-            <View style = {{flex:1, marginHorizontal: 25, marginTop: 10}}>
-                <View>
-                    <Text style = {{fontWeight:"bold", fontSize: 26}}>Health Services</Text>
-                    {
-                        this.state.loading ?
-                        <ActivityIndicator size = "small"/>
-                        :
-                        <FlatList 
-                            data = {this.state.dataSource}
-                            renderItem = {this._renderItems}
-                            keyExtractor = {(item, index) => index.toString()}
+  }
+  
+  backChevronPressed = () => {
+    this.props.navigation.navigate("Profile");
+  }
 
-                            refreshing={this.state.loading}
-                            onRefresh={() => { this.fetchDatafromServer()}}
-                        />
-                    }
-                </View>
-                <View style = {{flex:1, marginVertical:5}}>
-                    <Text style = {{fontWeight:"bold", fontSize: 26}}>Preventions</Text>
-                    <Text style = {{paddingTop:5}}>To prevent the spread of COVID-19: Clean your hands often. Use soap and water, or an alcohol-based hand rub.</Text>
-                    <Text style = {{paddingTop:5}}>Maintain a safe distance from anyone who is coughing or sneezing.</Text>
-                    <Text style = {{paddingTop:5}}>Maintain a safe distance from anyone who is coughing or sneezing.</Text>
-                    <Text style = {{paddingTop:5}}>Don’t touch your eyes, nose or mouth.</Text>
-                    <Text style = {{paddingTop:5}}>Cover your nose and mouth with your bent elbow or a tissue when you cough or sneeze.</Text>
-                    <Text style = {{paddingTop:5}}>Stay home if you feel unwell..</Text>
-                    <Text style = {{paddingTop:5}}>If you have a fever, cough and difficulty breathing, seek medical attention.</Text>
-                </View>
-                <View style = {{flex:1, marginVertical:5}}>
-                    <Text style = {{fontWeight:"bold", fontSize: 26}}>Symptomes</Text>
-                    <Text style = {{fontWeight:"bold", fontSize: 16}}>Most common symptoms:</Text>
-                    <Text style = {{paddingTop:5}}>Fever</Text>
-                    <Text style = {{paddingTop:5}}>Dry Cough</Text>
-                    <Text style = {{paddingTop:5}}>Tiredness</Text>
-                    <Text style = {{fontWeight:"bold", fontSize: 16}}>Less common symptoms:</Text>
-                    <Text style = {{paddingTop:5}}>Aches and pains</Text>
-                    <Text style = {{paddingTop:5}}>Sore throat</Text>
-                    <Text style = {{paddingTop:5}}>Diarrhoea</Text>
-                    <Text style = {{paddingTop:5}}>Conjunctivitis</Text>
-                    <Text style = {{paddingTop:5}}>Headache</Text>
-                    <Text style = {{paddingTop:5}}>Loss of taste or smell</Text>
-                    <Text style = {{paddingTop:5}}>A rash on skin, or discolouration of fingers or toes</Text>
-                    <Text style = {{fontWeight:"bold", fontSize: 16}}>Serious symptoms:</Text>
-                    <Text style = {{paddingTop:5}}>Difficulty breathing or shortness of breath</Text>
-                    <Text style = {{paddingTop:5}}>Chest pain or pressure</Text>
-                    <Text style = {{paddingTop:5}}>Loss of speech or movement</Text>
-                </View>
-            </View>
-            </ScrollView>
-        );
-    }
+  save = () => {
+    Alert.alert("Your question has been send to the Tutor,.. He will reply back to you shortly.");
+  }
+  
+  render() {
+    return (
+      <ScrollView>
+        
+        <View style = {styles.container}>
+            <View style = {{ marginTop:40}}/>
+          <View>  
+            <Text>What is Your Doubt ?</Text>
+            <Input 
+              value = {this.state.name} 
+              onChangeText={value => this.setState({ name: value })}
+              style = {styles.inputText}
+            />
+          </View>
+          
+          <AppPicker 
+            type = "Topic"
+            value = {this.state.gender}
+            selecteditem = {this.genderCategories}
+            onSelectItem = {item => this.setState({gender:item})}
+            items ={this.genderCategories}
+          />
+
+          <View style = {{height:20}} />
+
+          <View style = {styles.topContainer}>
+            <TouchableOpacity style = {styles.backChevronContainer} onPress = { () => this.save()}>
+            <Text style = {styles.saveText}>ASK</Text>
+            </TouchableOpacity>
+         </View>
+
+        </View>
+      </ScrollView>
+    );
+  }
 }
+
 export default AlwaysMore;
+
+const styles = StyleSheet.create({
+  backChevronContainer:{
+    marginBottom:10,
+  },
+  container:{
+    marginHorizontal:20
+  },
+  inputText:{
+    paddingLeft:15,
+    fontSize:17,
+  }, 
+  icon:{
+    width:30, 
+    height:30,
+    marginRight:15
+  },
+  saveText:{
+    fontSize:20,
+    color:'blue'
+  },
+  topContainer:{
+    justifyContent:'space-between',
+    paddingTop: Platform.OS === "android" ? StatusBar.currentHeight : 0,
+    marginHorizontal:20,
+    flexDirection:'row',    
+    alignItems:'center',
+    marginBottom:30
+  },
+  textInput: {
+    borderRadius:4, 
+    borderColor: '#b5b5b5', 
+    borderWidth: 1, 
+    margin:5, 
+    height:40, 
+    padding:5
+  },
+  inputPicker:{
+    borderBottomWidth:1,
+    marginBottom:30,
+    borderColor:'grey',
+    marginHorizontal:10,
+  }
+})

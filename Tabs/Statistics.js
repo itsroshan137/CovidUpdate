@@ -1,181 +1,97 @@
-import React from 'react';
-import {StyleSheet, Text, View, FlatList, ActivityIndicator,TouchableOpacity, Alert, Clipboard} from 'react-native';
-import {Avatar, Image} from 'react-native-elements';
-import {ThemeProvider, Input } from 'react-native-elements';
-
-export default class App extends React.Component{
-  constructor(props){
-    super();
-    this.state = {
-      isLoading: true,
-      text:''
-    };
-    ()=>{
-      this.arrayHolder = [];
+import React, {Component} from 'react';
+  import { SafeAreaView, View,StyleSheet, TouchableOpacity, Text, FlatList, Alert} from 'react-native';
+  import Constants from 'expo-constants';
+  import {SearchBar} from 'react-native-elements';
+  const data=[
+    {key:"1",title:"Chapter1: Java - Overview", desc: "Lore Ipsumm 1111111"},
+    {key:"2",title:"Chapter2: Java- Environment Setup", desc: "Lorem Ipsum 2222"},
+    {key:"3",title:"Chapter3: Java - Basic Syntax", desc: "Lorem Ipsum 333"},
+    {key:"4",title:"Chapter4: Java - Object and Classes", desc: "Lorem Ipsum 44"},
+    {key:"5",title:"Chapter5: Java- Basic Datatypes", desc: "Lorem Ipsum 555"},
+    {key:"6",title:"Chapter6: Java - Variable Types", desc: "Lorem Ipsum 666"},
+    {key:"7",title:"Chapter7: Java - Modifier Types", desc: "Lorem Ipsum 7777"},
+    {key:"7",title:"Chapter8: Java-Basic Operators", desc: "Lorem Ipsum 8888"},
+  ];
+  class Statistics extends Component {
+      constructor(){
+          super()
+          this.state={
+              data:data,
+              search:""
+          }
+      }
+    showItem=(data)=>{
+      Alert.alert(data);
     }
     
-  }
-
-  componentDidMount(){
-    this.fetchDataFromServer();  
-  }
-
-  fetchDataFromServer = () => {
-    fetch('https://api.covid19api.com/summary')
-    .then(response => response.json())
-    .then(responseJson => {
-      this.setState({
-        isLoading: false,
-        dataSource: responseJson.Countries,
-      },
-      ()=>{
-        this.arrayHolder = responseJson.Countries
-      });
-    }).catch(error =>{
-      console.log(error);
-    })
-  }
-
-  _renderItem = ({item}) => {
-    return(
-      <TouchableOpacity onPress = {() => 
-        Alert.alert(
-          item.Country,
-          `
-            New Confirmed Cases: ${item.NewConfirmed}
-            New Deaths: ${item.NewDeaths}
-            New Recovered: ${item.NewRecovered}
-            Total Recovered: ${item.TotalRecovered}
-            Total Deaths: ${item.TotalDeaths} 
-            Total Confirmed: ${item.TotalConfirmed}
-          `,
-          [
-            {
-              text:'Copy Data',
-              onPress: () => { 
-                Clipboard.setString(`
-                  Country: ${item.Country}
-                  New Confirmed Cases: ${item.NewConfirmed}
-                  New Deaths: ${item.NewDeaths}
-                  New Recovered: ${item.NewRecovered}
-                  Total Recovered: ${item.TotalRecovered}
-                  Total Deaths: ${item.TotalDeaths} 
-                `)
-                alert(
-                  "Copied to Clipboard"
-                )
-          }  
-            },
-            {
-              text: 'Okay',
-            }
-          ],
-          {
-            cancelable: false
-          }
-
-      )}>
-        <View style = {styles.country}>
-          <View style = {{flex:1, flexDirection:'row'}}>
-            <Image source={{ uri: "https://www.countryflags.io/"+(item.CountryCode)+"/flat/64.png" }} style={{ height:25, width:30 }} PlaceholderContent={<ActivityIndicator />} />
-            <Text>{"  " + item.Country} </Text>
-          </View>
-          <Text>{"(" + item.TotalConfirmed +")"} </Text>
-        </View>
-      </TouchableOpacity>
-    )
-  }
-
-  searchFilter = text => {
- 
-    const searchCountry = this.arrayHolder.filter(item => {
-      const fetchedCountries = `${item.Country.toUpperCase()}`;
-      const searchedCountry = text.toUpperCase();
-
-      return fetchedCountries.indexOf(searchedCountry) > -1; 
-    })
-
-    this.setState({dataSource: searchCountry, text: text});
     
-  }
 
-  render(){
-      if(this.state.isLoading){
+      renderHeader=()=>{
+        const { search } = this.state;
+          return(
+              <SearchBar
+                placeholder="Search Here"
+                lightTheme   
+                onChangeText={text=>this.searchAction(text)}
+                autoCorrect={false}
+                value={search}
+              />
+          )
+      }
+      searchAction=(text)=>{
+          const newData=data.filter(item=>{
+              const itemData=`${item.title.toUpperCase()}`;
+              const textData=text.toUpperCase();
+              return itemData.indexOf(textData) > -1;
+
+          });
+          this.setState({
+              data:newData,
+              search:text
+          });
+      }
+    
+
+      renderItem=(item)=>{
         return(
-          <View style ={styles.container}>
-            <ActivityIndicator size = "large" animating ></ActivityIndicator>
-          </View>
+          <TouchableOpacity onPress={() => this.chapterFunction(item)} key={item.key} style={styles.item}>
+            <Text>{item.title}</Text>
+        </TouchableOpacity>
         )
       }
-      return(
-        <View>
-            <View style = {styles.avatarContainer}>
-                <Avatar 
-                    source = {require('../assets/burger.png')}
-                    style={styles.avatar}
-                    onPress = {()=>{this.props.navigation.openDrawer("Statistics");}}
-                />
-                <View><Text>Statistics</Text></View>
-                <Avatar
-                    source = {require('../assets/info.png')}
-                    style={styles.avatar}
-                    onPress = {()=>{this.props.navigation.navigate("Information")}}
-                />
-            </View>  
-            <View>
-              
-              <Input
-                  placeholder='Search Country'
-                  leftIcon={{ type: 'font-awesome', name: 'search', size: 20 }}
-                  onChangeText = { text => this.searchFilter(text) }
-                  containerStyle = {{paddingHorizontal: 22}}
-                  leftIconContainerStyle = {{ paddingRight: 15}}
-                  value = {this.state.text}
-              />
-              <FlatList 
-                data = {this.state.dataSource}
-                renderItem = {this._renderItem}
-                keyExtractor = {(item, index) => index.toString()}
-                enableEmptySections={true}
-                
-                refreshing={this.state.isLoading}
-                onRefresh={() => { this.fetchDataFromServer(); }}
-              />
-           </View>
-        </View>
-      )
-  }
-}
 
-const styles = StyleSheet.create({
-  container: {
-    flex:1,
-    justifyContent:'center',
-    alignItems:'center',
-    padding: 10,
-    paddingTop:50,
-    marginTop: 50
-  },
-  country:{
-    padding:5,
-    borderBottomWidth:1,
-    borderBottomColor: '#fff',
-    padding: 10,
-    paddingHorizontal: 22,
-    marginTop: 5,
-    flex:1,
-    flexDirection: 'row',
-    justifyContent:'space-between'
-  },
-  avatarContainer:{
-    flex:1,
-    flexDirection:'row', 
-    justifyContent:"space-between", 
-    marginTop:50, marginLeft:25, 
-    marginRight:25, 
-    marginBottom: 40
-  },
-  avatar:{
-    width: 25, height: 25
+      chapterFunction = (item) =>{
+        this.props.navigation.navigate("Chapter", {title:item.title, body: item.desc});
+        // this.props.navigation.navigate("Chapter", {title:"Hey Man!", body: "What's ap"});
+      }
+
+      render(){
+          return(
+              <SafeAreaView style={styles.container}>
+                  <FlatList
+                    data={this.state.data}
+                    renderItem={({item})=>this.renderItem(item)}
+                    keyExtractor={item=>item.key.toString()}
+                    ListHeaderComponent={this.renderHeader}
+                  >
+                  </FlatList>
+              </SafeAreaView>         
+              
+          )
+      }
   }
-});
+  export default Statistics;
+
+  const styles =StyleSheet.create({
+      container: {
+          flex: 1,
+          marginTop: Constants.statusBarHeight,
+          padding:10
+        },
+        item:{
+          padding:10,
+          borderWidth:1,
+          borderRadius:5,
+          borderColor:"#c1dec5", 
+          marginBottom:10},
+  })

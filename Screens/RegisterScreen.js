@@ -14,7 +14,7 @@ export default class Update extends React.Component{
         }
     }
 
-    registerAdmin = async() => {
+    registerUser = async() => {
         try{  
             if(this.state.password === this.state.repassword){
                 const parameter = "?fullName="+ this.state.fullName + "&email="+ this.state.email + "&password="+ this.state.password;
@@ -53,7 +53,7 @@ render(){
             <Input placeholder = "Enter Password" onChangeText = {(val) => this.setState({password:val})}/>
             <Text>Re-Enter Password</Text>
             <Input placeholder = "Re-Enter Password" onChangeText = {(val) => this.setState({repassword:val})}/>
-            <Button title = "Register Admin" onPress = {this.registerAdmin}/>
+            <Button title = "Register User" onPress = {this.registerUser}/>
         </View>
       }
       </View>

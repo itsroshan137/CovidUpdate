@@ -1,10 +1,10 @@
 {
   "expo": {
-    "name": "Covid Update",
-    "slug": "covidupdate",
+    "name": "ITS for Learning Java",
+    "slug": "ITS For Learning Java",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/its.jpg",
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",

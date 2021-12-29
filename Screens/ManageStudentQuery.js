@@ -2,7 +2,7 @@ import React from 'react';
 import {View, Button, Text, ActivityIndicator, Alert} from 'react-native';   
 import {Input} from 'react-native-elements';     
 
-export default class Update extends React.Component{
+export default class ManageStudentQuery extends React.Component{
     constructor(){
         super();
         this.state = {
@@ -38,13 +38,13 @@ render () {
             <ActivityIndicator size = "large" style ={{flex:1, justifyContent:'center'}}/>
             :
             <View>
-                <Text>Enter Title</Text>
-                <Input placeholder = "Study Material Title Goes Here.." style = {{borderColor:'black', borderRadius:'1'}} onChangeText = {(val) => {this.setState({type:val})}}/>
-                <Text>Enter Description</Text>
-                <Input placeholder = "Description Goes Here.." style = {{borderColor:'black', borderRadius:'1'}} onChangeText = {(val) => {this.setState({contactNo:val})}}/>
-                <Text>Enter Photograph Urls</Text>
-                <Input placeholder = "Only urls please.." style = {{borderColor:'black', borderRadius:'1'}} onChangeText = {(val) => {this.setState({contactNo:val})}}/>
-                <Button title = "Create Study Material" onPress = {this.insertHealthServices}/>
+                <Text>Confused Topic</Text>
+                <Input placeholder = "Confused Topic" style = {{borderColor:'black', borderRadius:'1'}} onChangeText = {(val) => {this.setState({type:val})}}/>
+                <Text>Student Question</Text>
+                <Input placeholder = "Student Question" style = {{borderColor:'black', borderRadius:'1'}} onChangeText = {(val) => {this.setState({contactNo:val})}}/>
+                <Text>Your Reply</Text>
+                <Input placeholder = "Your Reply Please.." style = {{borderColor:'black', borderRadius:'1'}} onChangeText = {(val) => {this.setState({contactNo:val})}}/>
+                <Button title = "Reply Back to Student" onPress = {this.insertHealthServices}/>
             </View>
         }
     </View>
